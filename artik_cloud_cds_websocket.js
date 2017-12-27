@@ -39,16 +39,13 @@ function register(){
     console.log("Registering device on the WebSocket connection");
     try{
         var registerMessage =
-           '{"type":"register", "sdid":"'+device_id+'", "Authorization":"bearer
-'+device_token+'", "cid":"'+getTimeMillis()+'"}';
+           '{"type":"register", "sdid":"'+device_id+'", "Authorization":"bearer '+device_token+'", "cid":"'+getTimeMillis()+'"}';
         console.log('Sending register message ' + registerMessage + '\n');
         ws.send(registerMessage, {mask: true});
         isWebSocketReady = true;
     }
     catch (e) {
-        console.error('Failed to register messages. Error in registering messagee
-: '
-        + e.toString());
+        console.error('Failed to register messages. Error in registering message: ' + e.toString());
     }
 }
 
@@ -57,8 +54,7 @@ var cds_val;
 function sendSensorValueToArtikCloud(){
     try{
         //var cds_val;
-        fs.readFile('/sys/devices/12d10000.adc/iio:device0/in_voltage0_raw', 'utt
-f8', function(err, data) {
+        fs.readFile('/sys/devices/12d10000.adc/iio:device0/in_voltage0_raw', 'utf8', function(err, data) {
                 cds_val = Number(data);
         });
 
@@ -67,14 +63,14 @@ f8', function(err, data) {
         var data = {
               "brightness": cds_val
             };
-        var payload = '{"sdid":"'+device_id+'"'+ts+', "data": '+JSON.stringify(dd
-ata)+', "cid":"'+getTimeMillis()+'"}';
+        var payload = '{"sdid":"'+device_id+'"'+ts+', "data": '+JSON.stringify(data)+', "cid":"'+getTimeMillis()+'"}';
         console.log('Sending payload ' + payload + '\n');
         ws.send(payload, {mask: true});
     } catch (e) {
         console.error('Error in sending a message: ' + e.toString() +'\n');
     }
 }
+
 function exitClosePins() {
     console.log('Exit and destroy all pins!');
     process.exit();
