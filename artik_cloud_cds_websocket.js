@@ -54,7 +54,7 @@ var cds_val;
 function sendSensorValueToArtikCloud(){
     try{
         //var cds_val;
-        fs.readFile('/sys/devices/12d10000.adc/iio:device0/in_voltage0_raw', 'utf8', function(err, data) {
+        fs.readFile('/sys/devices/platform/c0000000.soc/c0053000.adc/iio:device0/in_voltage0_raw', 'utf8', function(err, data) {
                 cds_val = Number(data);
         });
 
