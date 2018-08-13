@@ -19,7 +19,7 @@ int main() {
 	artik_gpio_module *gpio = (artik_gpio_module *)artik_request_api_module("gpio");
 	artik_error ret = S_OK;
 	struct led_gpio led_port[] = {
-		{NULL, {ARTIK_A710_GPIO8, "LED", GPIO_OUT, GPIO_DIGITAL, GPIO_EDGE_NONE, 0, NULL }},
+		{NULL, {ARTIK_A710_GPIO8, "LED", GPIO_OUT, GPIO_EDGE_NONE, 0, NULL }},
 	};
 	ret = gpio->request(&led_port[0].handle, &led_port[0].config);
 	for (i = 0; i < 10; i++) {
@@ -27,8 +27,8 @@ int main() {
 		usleep(500000);
 		gpio->write(led_port[0].handle, 0);
 		usleep(500000);
-	}g
-	pio->release(led_port[0].handle);
+	}
+	gpio->release(led_port[0].handle);
 	ret = artik_release_api_module(gpio);
 	return 0;
 }
