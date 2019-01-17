@@ -12,7 +12,7 @@ int main(void) {
     while(currentRun < MAX_RUNS) {   
         int sensorVal = analogRead(inputPin);   
         tmp_val = sensorVal * 0.439453125 * 2; //mV
-        printf("Raw: %d, Voltage(mV): %f, ", sensorVal, tmp_val);
+        printf("Raw: %d, Voltage(mV): %f\n", sensorVal, tmp_val);
 
         currentRun++;        
         sleep(1); 
@@ -21,11 +21,11 @@ int main(void) {
 
 int analogRead(int pin) { 
   FILE * fd;
-  char fName[64];
+  char fName[] = "/sys/devices/platform/c00000000.soc/c0053000.adc/iio:device0/in_voltage0_raw";
   char val[8];
  
   // open value file
-  sprintf(fName, "/sys/devices/platform/c00000000.soc/c0053000.adc/iio:device0/in_voltage%d_raw", pin);
+  //sprintf(fName, "/sys/devices/platform/c00000000.soc/c0053000.adc/iio:device0/in_voltage%d_raw", pin);
  
   if((fd = fopen(fName, "r")) == NULL) {
      printf("Error: can't open analog voltage value\n");   
