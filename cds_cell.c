@@ -25,7 +25,7 @@ int analogRead(int pin) {
   char val[8];
  
   // open value file
-  sprintf(fName, "/sys/devices/12d10000.adc/iio:device0/in_voltage%d_raw", pin);
+  sprintf(fName, "/sys/devices/platform/c00000000.soc/c0053000.adc/iio:device0/in_voltage%d_raw", pin);
  
   if((fd = fopen(fName, "r")) == NULL) {
      printf("Error: can't open analog voltage value\n");   
